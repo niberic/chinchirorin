@@ -66,6 +66,7 @@ function clearAllDie(){
     clearDie(dieList[i]);
   }
   setTotalDieValue(0);
+  setPlayerScore(0);
 }
 
 function clearDie(elem){
