@@ -9,9 +9,24 @@ var dieImagePaths = [
 ];
 
 var totalDieValue = 0;
+var playerScore = 0;
 
 function getRandomNumber(max = 10){
   return Math.floor((Math.random() * max) + 1);
+}
+
+function updatePlayerScore(){
+  var player = document.getElementById("playerScore");
+  player.innerText = getPlayerScore();
+}
+
+function getPlayerScore(){
+  return playerScore;
+}
+
+function setPlayerScore(num){
+  playerScore = num;
+  updatePlayerScore();
 }
 
 function updateTotalScore(){
@@ -24,17 +39,23 @@ function setTotalDieValue(num){
   updateTotalScore();
 }
 
-function getTotalDieValue(num){
+function getTotalDieValue(){
   return totalDieValue;
 }
+
 
 function updateAllDie(){
   var dieList = document.getElementsByClassName("die");
   var random, i, total = 0, dieValue;
+  var rolledDice = [];
+
   for (i = 0; i < dieList.length; ++i){
     dieValue = updateDie(dieList[i]);
     total += dieValue;
+    rolledDice[i] = dieValue;
   }
+  //Check dice to see if we having a scoring hand.
+  setPlayerScore(checkHand(rolledDice));
   setTotalDieValue(total);
 }
 
@@ -62,4 +83,26 @@ function updateDie(elem){
   };
   imageObj.src = dieImagePaths[randomDie-1];
   return randomDie;
+}
+
+// Only going to check for a matching pair for now. Will implement special hands
+// later.
+function checkHand(diceArray){
+  diceArray.sort();
+  var score;
+
+  var d1 = diceArray[0];
+  var d2 = diceArray[1];
+  var d3 = diceArray[2];
+
+  if (d1 == d2){
+    score = d3;
+  }
+  else if (d2 == d3){
+    score = d1;
+  }
+  else{
+    score = 0;
+  }
+  return score;
 }
