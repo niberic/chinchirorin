@@ -1,5 +1,5 @@
 // Array holding all the locations for each die image.
-var sources = [
+var dieImagePaths = [
   "images/01.jpg",
   "images/02.jpg",
   "images/03.jpg",
@@ -29,18 +29,14 @@ function rollDie(){
 }
 
 function rollDieCanvas(){
-  var defaultLocation = "images/0";
-  var imgLocation = defaultLocation;
-  var random = getRandomNumber(6);
-  imgLocation += random + ".jpg";
-
+  var randomDie = getRandomNumber(6)-1;
   var c = document.getElementById("dieOne");
   var ctx = c.getContext("2d");
   var imageObj = new Image();
   imageObj.onload = function(){
     ctx.drawImage(imageObj,0,0);
   };
-  imageObj.src = imgLocation;
+  imageObj.src = dieImagePaths[randomDie];
 }
 
 // function loadImages(sources, callback) {
