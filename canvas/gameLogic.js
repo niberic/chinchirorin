@@ -1,3 +1,19 @@
+/*
+  Suikoden's Chinchirorin dice game!
+  Link to Wiki: http://suikoden.wikia.com/wiki/Chinchirorin
+
+  Finished:
+    1.) Functions to roll dice.
+      a.) Draws dice image on the canvas.
+    2.) Keep track of dice values.
+    3.) Updates player scores accordingly.
+  TODO:
+    1.) Computer player.
+    2.) Potch betting system.
+    3.) Title screen?
+
+*/
+
 // Array holding all the locations for each die image.
 var dieImagePaths = [
   "images/01.jpg",
@@ -8,6 +24,7 @@ var dieImagePaths = [
   "images/06.jpg"
 ];
 
+// Dictionary to hold mapping for playerScore.
 var scores = {
   0: "None! Roll again!",
   1: "1",
@@ -50,13 +67,12 @@ function updateTotalScore(){
   total.innerText = "Total Dice Value:" + getTotalDieValue();
 }
 
+function getTotalDieValue(){
+  return totalDieValue;
+}
 function setTotalDieValue(num){
   totalDieValue = num;
   updateTotalScore();
-}
-
-function getTotalDieValue(){
-  return totalDieValue;
 }
 
 function updateAllDie(){
@@ -69,7 +85,6 @@ function updateAllDie(){
     total += dieValue;
     rolledDice[i] = dieValue;
   }
-  //Check dice to see if we having a scoring hand.
   setPlayerScore(checkHand(rolledDice));
   setTotalDieValue(total);
 }
@@ -101,9 +116,6 @@ function updateDie(elem){
   return randomDie;
 }
 
-// Only going to check for a matching pair for now. Will implement special hands
-// later.
-
 /*
   Hand Rules:
     Basic: If a pair of dice match, then playerScore is the remaining dice.
@@ -116,7 +128,6 @@ function updateDie(elem){
         Playing instantly wins, and wins 2x bet!
       4.) Straight with 1,2,3
         Playing instantly loses, and pay 3x bet!
-    TODO: Implement potch betting.
 */
 
 function checkHand(diceArray){
@@ -138,7 +149,7 @@ function checkHand(diceArray){
       score = 23;
     }
     else{
-      score = 13;   //StORM! Win!
+      score = 13;   //STORM! Win!
     }
   }
   else if((d2 == (d1+1)) && (d3 == (d1+2))){
