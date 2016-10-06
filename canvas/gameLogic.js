@@ -8,6 +8,22 @@ var dieImagePaths = [
   "images/06.jpg"
 ];
 
+var scores = {
+  0: "None! Roll again!",
+  1: "1",
+  2: "2",
+  3: "3",
+  4: "4",
+  5: "5",
+  6: "6",
+  10: "Win 1x!",
+  11: "Win 2x!",
+  12: "STORM! Win 3x!",
+  21: "Lose 1x!",
+  22: "Lose 2x!",
+  23: "STORM! Win 3x!"
+};
+
 var totalDieValue = 0;
 var playerScore = 0;
 
@@ -21,7 +37,7 @@ function updatePlayerScore(){
 }
 
 function getPlayerScore(){
-  return playerScore;
+  return scores[playerScore];
 }
 
 function setPlayerScore(num){
@@ -87,6 +103,22 @@ function updateDie(elem){
 
 // Only going to check for a matching pair for now. Will implement special hands
 // later.
+
+/*
+  Hand Rules:
+    Basic: If a pair of dice match, then playerScore is the remaining dice.
+    Special Hands:
+      1.) Three of a kind that's not three ones.
+        Player instantly wins, and wins 3x bet!
+      2.) Three ones (1,1,1).
+        Player instantly loses and pays 1x bet!
+      3.) Straight (E.g. 2,3,4)
+        Playing instantly wins, and wins 2x bet!
+      4.) Straight with 1,2,3
+        Playing instantly loses, and pay 3x bet!
+    TODO: Implement potch betting.
+*/
+
 function checkHand(diceArray){
   diceArray.sort();
   var score;
@@ -95,13 +127,29 @@ function checkHand(diceArray){
   var d2 = diceArray[1];
   var d3 = diceArray[2];
 
-  if (d1 == d2){
+  if (d1 == d2){      //Pair
     score = d3;
   }
-  else if (d2 == d3){
+  else if (d2 == d3){ //Pair
     score = d1;
   }
-  else{
+  else if((d1 == d2) && (d1 == d3)){ //3 of a kind
+    if (d1 == 1){   //STORM! Lose!
+      score = 23;
+    }
+    else{
+      score = 13;   //StORM! Win!
+    }
+  }
+  else if((d2 == (d1+1)) && (d3 == (d1+2))){
+    if (d1 == 1){   //Straight (1,2,3) LOSE!
+      score = 22;
+    }
+    else{
+      score = 12;   //Straight, Win!
+    }
+  }
+  else{             //No valid hand.
     score = 0;
   }
   return score;
