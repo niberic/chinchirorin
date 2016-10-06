@@ -17,7 +17,7 @@ function getRandomNumber(max = 10){
 
 function updatePlayerScore(){
   var player = document.getElementById("playerScore");
-  player.innerText = getPlayerScore();
+  player.innerText = "Player Score: " + getPlayerScore();
 }
 
 function getPlayerScore(){
@@ -31,7 +31,7 @@ function setPlayerScore(num){
 
 function updateTotalScore(){
   var total = document.getElementById("totalScore");
-  total.innerText = getTotalDieValue();
+  total.innerText = "Total Dice Value:" + getTotalDieValue();
 }
 
 function setTotalDieValue(num){
@@ -42,7 +42,6 @@ function setTotalDieValue(num){
 function getTotalDieValue(){
   return totalDieValue;
 }
-
 
 function updateAllDie(){
   var dieList = document.getElementsByClassName("die");
