@@ -6,7 +6,6 @@
   </head>
   <body>
     <script type="text/javascript" src="testing.js"></script>
-    <p>Here is a canvas to fill up.</p>
     <div class="diceList">
       <canvas class="die" id="dieOne" width="100" height="100"
         style="border:1px solid blue";>
@@ -18,7 +17,9 @@
         style="border:1px solid blue";>
       </canvas>
     </div>
-    <p><button onclick="rollDieCanvas()"> Update First Die! </button></p>
+    <div class="score">
+      <p id="totalScore"> 0 </p>
+    </div>
     <p><button onclick="updateAllDie()"> Roll ALL die! </button></p>
     <p><button onclick="clearAllDie()"> Clear ALL die! </button></p>
   </body>

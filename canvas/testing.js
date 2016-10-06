@@ -8,16 +8,34 @@ var dieImagePaths = [
   "images/06.jpg"
 ];
 
+var totalDieValue = 0;
+
 function getRandomNumber(max = 10){
   return Math.floor((Math.random() * max) + 1);
 }
 
+function updateTotalScore(){
+  var total = document.getElementById("totalScore");
+  total.innerText = getTotalDieValue();
+}
+
+function setTotalDieValue(num){
+  totalDieValue = num;
+  updateTotalScore();
+}
+
+function getTotalDieValue(num){
+  return totalDieValue;
+}
+
 function updateAllDie(){
   var dieList = document.getElementsByClassName("die");
-  var random, i;
+  var random, i, total = 0, dieValue;
   for (i = 0; i < dieList.length; ++i){
-    updateDie(dieList[i]);
+    dieValue = updateDie(dieList[i]);
+    total += dieValue;
   }
+  setTotalDieValue(total);
 }
 
 function clearAllDie(){
@@ -26,6 +44,7 @@ function clearAllDie(){
   for (i = 0; i < dieList.length; ++i){
     clearDie(dieList[i]);
   }
+  setTotalDieValue(0);
 }
 
 function clearDie(elem){
@@ -35,22 +54,12 @@ function clearDie(elem){
 
 function updateDie(elem){
   var ctx = elem.getContext("2d");
-  var randomDie = getRandomNumber(6)-1;
+  var randomDie = getRandomNumber(6);
 
   var imageObj = new Image();
   imageObj.onload = function(){
     ctx.drawImage(imageObj,0,0);
   };
-  imageObj.src = dieImagePaths[randomDie];
-}
-
-function rollDieCanvas(){
-  var randomDie = getRandomNumber(6)-1;
-  var c = document.getElementById("dieOne");
-  var ctx = c.getContext("2d");
-  var imageObj = new Image();
-  imageObj.onload = function(){
-    ctx.drawImage(imageObj,0,0);
-  };
-  imageObj.src = dieImagePaths[randomDie];
+  imageObj.src = dieImagePaths[randomDie-1];
+  return randomDie;
 }
