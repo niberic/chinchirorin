@@ -38,7 +38,7 @@ var scores = {
   12: "STORM! Win 3x!",
   21: "Lose 1x!",
   22: "Lose 2x!",
-  23: "STORM! Win 3x!"
+  23: "STORM! Lose 3x!"
 };
 
 var totalDieValue = 0;
