@@ -20,8 +20,21 @@ function updateAllDie(){
   }
 }
 
-function updateDie(canvas){
-  var ctx = canvas.getContext("2d");
+function clearAllDie(){
+  var dieList = document.getElementsByClassName("die");
+  var i;
+  for (i = 0; i < dieList.length; ++i){
+    clearDie(dieList[i]);
+  }
+}
+
+function clearDie(elem){
+  var ctx = elem.getContext("2d");
+  ctx.clearRect(0,0, 100,100);
+}
+
+function updateDie(elem){
+  var ctx = elem.getContext("2d");
   var randomDie = getRandomNumber(6)-1;
 
   var imageObj = new Image();
