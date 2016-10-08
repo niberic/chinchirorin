@@ -11,7 +11,8 @@
     1.) Computer player.
     2.) Potch betting system.
     3.) Title screen?
-
+    4.) Implement the "Piss" mechanic of botching a "dice throw"
+      Results in the current player instantly losing.
 */
 
 // Array holding all the locations for each die image.
@@ -25,7 +26,7 @@ var dieImagePaths = [
 ];
 
 // Dictionary to hold mapping for playerScore.
-var scores = {
+var scoreStrings = {
   0: "None! Roll again!",
   1: "1",
   2: "2",
@@ -42,7 +43,9 @@ var scores = {
 };
 
 var totalDieValue = 0;
-var playerScore = 0;
+var playerScore = "";
+var currentState = "";
+var nextState = "";
 
 function getRandomNumber(max = 10){
   return Math.floor((Math.random() * max) + 1);
@@ -54,7 +57,7 @@ function updatePlayerScore(){
 }
 
 function getPlayerScore(){
-  return scores[playerScore];
+  return scoreStrings[playerScore];
 }
 
 function setPlayerScore(num){
@@ -164,4 +167,22 @@ function checkHand(diceArray){
     score = 0;
   }
   return score;
+}
+
+/* Our main game loop that will transtion between states accordingly */
+function gameLoop(state){
+  switch(state){
+    case "start":
+      break;
+    case "betting":
+      break;
+    case "player":
+      break;
+    case "computer":
+      break;
+    case "payout":
+      break;
+    default:
+
+  }
 }
