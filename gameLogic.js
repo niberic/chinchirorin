@@ -42,10 +42,17 @@ var scoreStrings = {
   23: "STORM! Lose 3x!"
 };
 
+var playerToClass = {
+  0: "playerDie",
+  1: "computerDie"
+};
+
 var totalDieValue = 0;
 var playerScore = "";
+var computerScore = "";
 var currentState = "";
 var nextState = "";
+var currentPlayer = 0;
 
 function getRandomNumber(max = 10){
   return Math.floor((Math.random() * max) + 1);
@@ -65,6 +72,20 @@ function setPlayerScore(num){
   updatePlayerScore();
 }
 
+function updateComputerScore(){
+  var player = document.getElementById("computerScore");
+  player.innerText = "Computer Score: " + getComputerScore();
+}
+
+function getComputerScore(){
+  return scoreStrings[computerScore];
+}
+
+function setComputerScore(num){
+  computerScore = num;
+  updateComputerScore();
+}
+
 function updateTotalScore(){
   var total = document.getElementById("totalScore");
   total.innerText = "Total Dice Value:" + getTotalDieValue();
@@ -79,7 +100,7 @@ function setTotalDieValue(num){
 }
 
 function updateAllDie(){
-  var dieList = document.getElementsByClassName("die");
+  var dieList = document.getElementsByClassName(playerToClass[currentPlayer]);
   var random, i, total = 0, dieValue;
   var rolledDice = [];
 
@@ -88,18 +109,23 @@ function updateAllDie(){
     total += dieValue;
     rolledDice[i] = dieValue;
   }
-  setPlayerScore(checkHand(rolledDice));
-  setTotalDieValue(total);
+  var score = checkHand(rolledDice);
+  if(currentPlayer == 0){
+    setPlayerScore(score);
+  }
+  else{
+    setComputerScore(score);
+  }
 }
 
 function clearAllDie(){
-  var dieList = document.getElementsByClassName("die");
+  var dieList = document.getElementById("dice").children;
   var i;
   for (i = 0; i < dieList.length; ++i){
     clearDie(dieList[i]);
   }
-  setTotalDieValue(0);
   setPlayerScore(0);
+  setComputerScore(0);
 }
 
 function clearDie(elem){
@@ -185,4 +211,8 @@ function gameLoop(state){
     default:
 
   }
+}
+
+function switchPlayers(){
+  currentPlayer = currentPlayer == 0 ? 1 : 0;
 }
