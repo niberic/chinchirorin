@@ -53,6 +53,8 @@ var computerScore = "";
 var currentState = "";
 var nextState = "";
 var currentPlayer = 0;
+var playerPotch = 0;
+var currentBet = 0;
 
 function getRandomNumber(max = 10){
   return Math.floor((Math.random() * max) + 1);
@@ -86,6 +88,20 @@ function setComputerScore(num){
   updateComputerScore();
 }
 
+function updatePlayerPotch(){
+  var player = document.getElementById("playerPotch");
+  player.innerText = "Player Potch: " + getPlayerPotch();
+}
+
+function getPlayerPotch(){
+  return playerPotch;
+}
+
+function setPlayerPotch(num){
+  playerPotch = num;
+  updatePlayerPotch();
+}
+
 function updateTotalScore(){
   var total = document.getElementById("totalScore");
   total.innerText = "Total Dice Value:" + getTotalDieValue();
@@ -98,6 +114,8 @@ function setTotalDieValue(num){
   totalDieValue = num;
   updateTotalScore();
 }
+
+
 
 function updateAllDie(){
   var dieList = document.getElementsByClassName(playerToClass[currentPlayer]);
@@ -209,10 +227,22 @@ function gameLoop(state){
     case "payout":
       break;
     default:
-
   }
 }
 
 function switchPlayers(){
   currentPlayer = currentPlayer == 0 ? 1 : 0;
+}
+
+function setAndHideBet(){
+  currentBet = document.getElementById("playerBet").value;
+  hideElement("bet");
+}
+
+function hideElement(id){
+  document.getElementById(id).style.display = 'none';
+}
+
+function showElement(id){
+  document.getElementById(id).style.display = 'block';
 }

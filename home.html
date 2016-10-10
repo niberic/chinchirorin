@@ -25,9 +25,18 @@
         style="border:1px solid red";>
       </canvas>
     </div>
+    <div class="potch">
+      <p id="playerPotch"> Player Potch: 0 </p>
+    </div>
     <div class="score">
       <p id="playerScore"> Player Score: Nothing! </p>
       <p id="computerScore"> Computer Score: Nothing! </p>
+    </div>
+    <div id="bet">
+      <p>
+        <input type="text" id="playerBet"></>
+        <button onclick="setAndHideBet()"> Confirm bet! </button>
+      </p>
     </div>
     <button onclick="updateAllDie()"> Roll ALL die! </button>
     <button onclick="clearAllDie()"> Clear ALL die! </button>
